@@ -32,6 +32,7 @@ class Router
                     $controllerFile = __DIR__ . '../../../app/controller/' . strtolower($controller[0]) . '.php';
                     if (file_exists($controllerFile)) {
                         require_once $controllerFile;
+                        $className ='App\Controller\\'.$className;
                         call_user_func_array([new $className, $controller[1]], $parameters);
                     }
                 }

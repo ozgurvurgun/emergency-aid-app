@@ -1,4 +1,7 @@
 <?php
+
+namespace System\Core;
+
 class Controller
 {
     public function view($name, $data = [])
@@ -16,7 +19,8 @@ class Controller
     }
     public function model($name)
     {
-        require __DIR__ . '../../../app/model/' . strtolower($name) . '.php';
+        require_once __DIR__ . '../../../app/model/' . strtolower($name) . '.php';
+        $name = 'App\Model\\' . $name;
         return new $name();
     }
 }

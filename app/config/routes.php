@@ -33,6 +33,5 @@
   Router::run('/url/{url}', 'class@method');
 */
 
-Router::run('/uyeler', 'uyeler@index');
-Router::run('/uyeler', 'uyeler@hello');
-Router::run('/uyeler', 'uyeler@post', 'post');
+Router::run('/', 'homePage@index');
+Router::run('/', 'ozgur@index');
