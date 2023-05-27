@@ -1,6 +1,8 @@
 <?php
+
 namespace System\Database;
-require_once __DIR__ . '../../../app/config/database.php';
+
+require_once 'app/config/database.php';
 class Database
 {
     protected $db;
@@ -17,7 +19,7 @@ class Database
         try {
             $this->db = new \PDO("mysql:host=$this->hostname;dbname=$this->databaseName;", "$this->username", "$this->password");
         } catch (\PDOException $e) {
-            echo '<pre><span style="color:red">CONNECTION ERROR: </span>' . $e->getMessage().'</pre>';
+            echo '<pre><span style="color:red">CONNECTION ERROR: </span>' . $e->getMessage() . '</pre>';
         }
     }
 }

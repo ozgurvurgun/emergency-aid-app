@@ -9,4 +9,8 @@ class HomePage extends Model
     {
         return $this->db->query('SELECT * FROM basic_mvc')->fetchAll(\PDO::FETCH_ASSOC);
     }
+    public function connect()
+    {
+        echo "<h1>model connect calisti</h1>";
+    }
 }

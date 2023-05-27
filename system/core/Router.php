@@ -11,10 +11,8 @@ class Router
     }
     public static function run($url, $callback, $method = 'get')
     {
-
         $method = explode('|', strtoupper($method));
         if (in_array($_SERVER['REQUEST_METHOD'], $method)) {
-
             $patterns = [
                 '{url}' => '([0-9a-z-A-Z]+)',
                 '{id}'    => '([0-9]+)'
@@ -29,16 +27,23 @@ class Router
                     $controller = explode('@', $callback);
                     $className = explode('/', $controller[0]);
                     $className = end($className);
-                    $controllerFile = __DIR__ . '../../../app/controller/' . strtolower($controller[0]) . '.php';
+                    $controller_files = glob("app/controller/*.php");
+                    foreach ($controller_files as $file) {
+                        $fileName =  explode("/", $file);
+                        if (strtolower($fileName[2]) == strtolower($controller[0] . ".php")) {
+                            $controller[0] = $fileName[2];
+                            break;
+                        }
+                    }
+                    $controllerFile = 'app/controller/' . $controller[0];
                     if (file_exists($controllerFile)) {
                         require_once $controllerFile;
-                        $className ='App\Controller\\'.$className;
+                        $className = 'App\Controller\\' . $className;
                         call_user_func_array([new $className, $controller[1]], $parameters);
                     }
                 }
-            }
-            else{
-                echo '<h1 style="color:Red">Aradığın Sayfayı Bulamadık.</h1>';
+            } else {
+                echo '<h1 style="color:Red">404 Page Not Found.</h1>';
             }
         }
     }

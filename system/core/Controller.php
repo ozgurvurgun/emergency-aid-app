@@ -10,16 +10,32 @@ class Controller
              'name'    => 'ozgur',
              'surname' => 'vurgun'
              ];
-         */
+        */
         extract($data);
         /*  echo $name;
             echo $surname;
         */
-        require __DIR__ . '../../../app/view/' . strtolower($name) . '.php';
+        $view_files = glob("app/view/*.php");
+        foreach ($view_files as $file) {
+            $fileName =  explode("/", $file);
+            if (strtolower($fileName[2]) == strtolower($name . ".php")) {
+                $name = $fileName[2];
+                break;
+            }
+        }
+        require 'app/view/' . $name;
     }
     public function model($name)
     {
-        require_once __DIR__ . '../../../app/model/' . strtolower($name) . '.php';
+        $model_files = glob("app/model/*.php");
+        foreach ($model_files as $file) {
+            $fileName =  explode("/", $file);
+            if (strtolower($fileName[2]) == strtolower($name . ".php")) {
+                $name = $fileName[2];
+                break;
+            }
+        }
+        require 'app/model/' . $name;
         $name = 'App\Model\\' . $name;
         return new $name();
     }

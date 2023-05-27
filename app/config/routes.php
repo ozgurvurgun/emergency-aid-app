@@ -6,7 +6,7 @@
   });
 */
 
-/* 
+/*
   callback function in directory 
   Router::run('/profile/{url}', function ($name) {
     echo "welcome " . $name;
@@ -33,5 +33,6 @@
   Router::run('/url/{url}', 'class@method');
 */
 
-Router::run('/', 'homePage@index');
-Router::run('/', 'ozgur@index');
+Router::run('/', 'HomePage@index');
+Router::run('/', 'HomePage@ece');
+Router::run('/', 'AlArkoKombi@index');
