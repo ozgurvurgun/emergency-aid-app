@@ -36,3 +36,4 @@
 Router::run('/', 'HomePage@index');
 Router::run('/', 'HomePage@ece');
 Router::run('/', 'AlArkoKombi@index');
+Router::run('/ozgur', 'ozgur@index');

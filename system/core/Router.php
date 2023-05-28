@@ -15,11 +15,11 @@ class Router
         if (in_array($_SERVER['REQUEST_METHOD'], $method)) {
             $patterns = [
                 '{url}' => '([0-9a-z-A-Z]+)',
-                '{id}'    => '([0-9]+)'
+                '{id}'  => '([0-9]+)'
             ];
             $url = str_replace(array_keys($patterns), array_values($patterns), $url);
             $request_uri = self::parse_url();
-            if (preg_match('@^' .  $url . '$@', $request_uri, $parameters)) {
+            if (preg_match('@^' .  $url . '$@', $request_uri, $parameters) || preg_match('@^' .  $url . '/$@', $request_uri, $parameters)) {
                 unset($parameters[0]);
                 if (is_callable($callback)) {
                     call_user_func_array($callback, $parameters);
@@ -42,8 +42,6 @@ class Router
                         call_user_func_array([new $className, $controller[1]], $parameters);
                     }
                 }
-            } else {
-                echo '<h1 style="color:Red">404 Page Not Found.</h1>';
             }
         }
     }
