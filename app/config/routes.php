@@ -33,5 +33,12 @@
   Router::run('/url/{url}', 'class@method');
 */
 
+/* 
+  The default parameter is "get". It doesn't need to be specified. 
+  But it is useful to specify it for legibility.
+*/
+
 Router::run('/', 'HomePage@index');
-//Router::run('/', 'test@index');
+Router::run('/getCounty/{id}', 'HomePage@getCounty', 'get');
+Router::run('/getNeighbourhood/{id}', 'HomePage@getNeighbourhood', 'get');
+Router::run('/saveForm', 'HomePage@saveForm', 'post');

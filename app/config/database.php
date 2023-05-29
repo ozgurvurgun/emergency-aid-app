@@ -1,7 +1,8 @@
 <?php
 $_ENV["DATABASE"] = array(
-    'hostname' => 'localhost',
-    'username' => 'root',
-    'password' => '',
-    'database' => 'mvc'
+    'connection' => 'on',
+    'hostname'   => 'localhost',
+    'username'   => 'root',
+    'password'   => '',
+    'database'   => 'emergency_aid_app'
 );

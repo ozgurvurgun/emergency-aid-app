@@ -19,11 +19,11 @@ class Controller
         foreach ($view_files as $file) {
             $fileName =  explode("/", $file);
             if (strtolower($fileName[2]) == strtolower($name . ".php")) {
-                $name = $fileName[2];
+                $fileName = $fileName[2];
                 break;
             }
         }
-        require 'app/view/' . $name;
+        require 'app/view/' . $fileName;
     }
     public function model($name)
     {
@@ -31,12 +31,12 @@ class Controller
         foreach ($model_files as $file) {
             $fileName =  explode("/", $file);
             if (strtolower($fileName[2]) == strtolower($name . ".php")) {
-                $name = $fileName[2];
+                $fileName = $fileName[2];
                 break;
             }
         }
-        require 'app/model/' . $name;
-        $name = 'App\Model\\' . $name;
-        return new $name();
+        require 'app/model/' . $fileName;
+        $className = 'App\Model\\' . $name;
+        return new $className();
     }
 }

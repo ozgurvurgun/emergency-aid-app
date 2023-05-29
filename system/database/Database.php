@@ -12,14 +12,16 @@ class Database
     private $databaseName;
     public function __construct()
     {
-        $this->hostname = $_ENV["DATABASE"]['hostname'];
-        $this->username = $_ENV["DATABASE"]['username'];
-        $this->password = $_ENV["DATABASE"]['password'];
-        $this->databaseName = $_ENV["DATABASE"]['database'];
-        try {
-            $this->db = new \PDO("mysql:host=$this->hostname;dbname=$this->databaseName;", "$this->username", "$this->password");
-        } catch (\PDOException $e) {
-            echo '<pre><span style="color:red">CONNECTION ERROR: </span>' . $e->getMessage() . '</pre>';
+        if ($_ENV["DATABASE"]['connection'] == 'on') {
+            $this->hostname = $_ENV["DATABASE"]['hostname'];
+            $this->username = $_ENV["DATABASE"]['username'];
+            $this->password = $_ENV["DATABASE"]['password'];
+            $this->databaseName = $_ENV["DATABASE"]['database'];
+            try {
+                $this->db = new \PDO("mysql:host=$this->hostname;dbname=$this->databaseName;", "$this->username", "$this->password");
+            } catch (\PDOException $e) {
+                echo '<pre><span style="color:red">CONNECTION ERROR: </span>' . $e->getMessage() . '</pre>';
+            }
         }
     }
 }
