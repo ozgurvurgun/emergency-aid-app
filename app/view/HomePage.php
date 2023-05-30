@@ -20,7 +20,9 @@
               <option value="0" selected>Seçin...</option>
               <?php
               foreach ($cityData as $value) { ?>
-                <option value="<?= $value['sehir_key'] ?>"><?= $value['sehir_title'] ?></option>
+                <option value="<?= $value['sehir_key'] ?>">
+                  <?= $value['sehir_title'] ?>
+                </option>
               <?php } ?>
             </select>
           </div>
@@ -86,14 +88,20 @@
       </div>
       <div class="row">
         <div class="d-grid gap-2 col-4 mx-auto mt-4">
-          <button id="submitForm" class="btn btn-lg btn-primary" type="submit">GÖNDER</button>
+          <button id="submitForm" class="btn btn-lg btn-primary" type="submit">
+            GÖNDER
+          </button>
         </div>
       </div>
     </form>
   </div>
   <div class="container">
-    <p class="text-center mt-4 mb-5">Yardım taleplerini toplu bir şekilde ilgili birimlere ulaştırmaya çalışıyoruz. Lütfen methanetli olun ve sakinliğinizi koruyun.<br />Sizi yalnız bırakmayacağız.</p>
-    <hr class="border border-dark rounded border-4 opacity-50">
+    <p class="text-center mt-4 mb-5">
+      Yardım taleplerini toplu bir şekilde ilgili birimlere ulaştırmaya
+      çalışıyoruz. Lütfen methanetli olun ve sakinliğinizi koruyun.<br />Sizi
+      yalnız bırakmayacağız.
+    </p>
+    <hr class="border border-dark rounded border-4 opacity-50" />
     <h1 class="text-center mt-4 mb-4 text-danger">
       Kayıtlı Yardım Talepleri
     </h1>
@@ -102,45 +110,73 @@
         <div class="col-md-4">
           <div class="mb-3">
             <label class="form-label">il</label>
-            <select class="form-select">
-              <option selected>Seçin...</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+            <select id="filter" class="form-select">
+              <option value="0" selected>Seçin...</option>
+              <?php
+              foreach ($cityData as $value) { ?>
+                <option value="<?= $value['sehir_key'] ?>">
+                  <?= $value['sehir_title'] ?>
+                </option>
+              <?php } ?>
             </select>
           </div>
         </div>
         <div class="col-md-4">
           <div class="mb-3">
             <label class="form-label">ilçe</label>
-            <select class="form-select">
+            <select id="filterCounty" class="form-select">
               <option selected>Seçin...</option>
               <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
             </select>
           </div>
         </div>
         <div class="col-md-4 mx-auto">
           <label class="form-label">&nbsp;</label>
           <div class="d-grid gap-2">
-            <button class="btn btn-success" type="button">Filtrele</button>
+            <button id="filterButton" class="btn btn-success" type="button">Filtrele</button>
           </div>
         </div>
       </div>
     </form>
   </div>
-  <div class="container mt-4 mb-4">
-    <div class="row text-center font-monospace">
-      <div class="col-md-4 p-3">Adıyaman (3076)</div>
-      <div class="col-md-4 p-3">Batman (12)</div>
-      <div class="col-md-4 p-3">Bingöl (5)</div>
-      <div class="col-md-4 p-3">Adıyaman (3076)</div>
-      <div class="col-md-4 p-3">Batman (12)</div>
-      <div class="col-md-4 p-3">Bingöl (5)</div>
-      <div class="col-md-4 p-3">Adıyaman (3076)</div>
-      <div class="col-md-4 p-3">Batman (12)</div>
+  <div class="container mt-5 mb-4">
+    <div class="table-responsive">
+      <table class="table">
+        <thead class="table-dark rounded">
+          <tr>
+            <th scope="col">İl</th>
+            <th scope="col">İlçe</th>
+            <th scope="col">Adres</th>
+            <th scope="col">İletişim</th>
+            <th scope="col">Kaynak</th>
+            <th scope="col">Not</th>
+            <th scope="col">Kayıt Zamanı</th>
+          </tr>
+        </thead>
+        <tbody>
 
+          <?php
+          foreach ($tableData as $value) { ?>
+            <tr>
+              <td><?= $value['yardim_talepleri_il'] ?></td>
+              <td><?= $value['yardim_talepleri_ilce'] ?></td>
+              <td>
+                <?= $value['yardim_talepleri_mahalle'] ?>&nbsp;mahallesi<br />
+                <?= $value['yardim_talepleri_cadde_sokak'] ?><br />
+                <?= $value['yardim_talepleri_apartman_adi'] ?>&nbsp;apartmanı<br />
+                apartman no:&nbsp;<?= $value['yardim_talepleri_apartman_no'] ?>
+              </td>
+              <td>
+                telefon numarası:&nbsp;<?= $value['yardim_talepleri_telefon_no'] ?><br />
+                ad soyad:&nbsp;<?= $value['yardim_talepleri_ad_soyad'] ?>
+              </td>
+              <td><?= $value['yardim_talepleri_kaynak'] ?></td>
+              <td><?= $value['yardim_talepleri_not'] ?></td>
+              <td><?= $value['yardim_talepleri_zaman'] ?></td>
+            </tr>
+          <?php } ?>
+        </tbody>
+      </table>
     </div>
   </div>
   <script src="app/view/js/script.js"></script>

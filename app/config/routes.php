@@ -42,3 +42,4 @@ Router::run('/', 'HomePage@index');
 Router::run('/getCounty/{id}', 'HomePage@getCounty', 'get');
 Router::run('/getNeighbourhood/{id}', 'HomePage@getNeighbourhood', 'get');
 Router::run('/saveForm', 'HomePage@saveForm', 'post');
+Router::run('/filterTable', 'HomePage@filterTable', 'post');

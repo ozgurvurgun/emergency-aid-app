@@ -9,8 +9,10 @@ class HomePage extends Controller
     public function index()
     {
         $cityData =  $this->model('HomePage')->getCity();
+        $tableData =  $this->model('HomePage')->getTableData();
         $this->view('HomePage', [
-            'cityData' => $cityData
+            'cityData' => $cityData,
+            'tableData' => $tableData
         ]);
     }
     public function getCounty($id)
@@ -38,5 +40,16 @@ class HomePage extends Controller
             'note'          => $_POST['not'],
         ];
         echo  $this->model('HomePage')->saveForm($postData);
+    }
+    public function filterTable()
+    {
+        if (trim($_POST['il']) === "Seçin...") {
+            echo "Lütfen Şehir Seçin";
+        } elseif (trim($_POST['il']) != 'Seçin...' & trim($_POST['ilce']) == 'Seçin...') {
+            echo "illeri siraliyorum";
+        }
+        elseif(trim($_POST['il']) != 'Seçin...' & trim($_POST['ilce']) != 'Seçin...'){
+            echo "il ve ilçelere göre siraliyorum";
+        }
     }
 }

@@ -5,7 +5,7 @@ let submitForm = document.getElementById("submitForm");
 //-//--//-//--//-//--//-//--//-//--//-//--//-//--//-//--//-//--//-//--//-//--//-//
 
 SelectCity.addEventListener("change", (event) => {
-  const URL = `/emergency-aid-app/getCounty/${event.target.value}`;
+  const URL = `/getCounty/${event.target.value}`;
   const xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
@@ -26,7 +26,7 @@ SelectCity.addEventListener("change", (event) => {
 //-//--//-//--//-//--//-//--//-//--//-//--//-//--//-//--//-//--//-//--//-//--//-//
 
 SelectCounty.addEventListener("change", (event) => {
-  const URL = `/emergency-aid-app/getNeighbourhood/${event.target.value}`;
+  const URL = `/getNeighbourhood/${event.target.value}`;
   const xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
@@ -72,9 +72,54 @@ submitForm.addEventListener("click", (e) => {
       alert(this.responseText);
     }
   };
-  xhttp.open("POST", "/emergency-aid-app/saveForm");
+  xhttp.open("POST", "/saveForm");
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.send(
     `il=${selectCity}&ilce=${SelectCounty}&mahalle=${selectNeighbourhood}&caddeSokak=${street}&apartmanAd=${apartmentName}&apartmanNo=${apartmentNo}&telefon=${telephoneNo}&adSoyad=${nameSurname}&kaynak=${source}&not=${note}`
   );
+});
+
+//-//--//-//--//-//--//-//--//-//--//-//--//-//--//-//--//-//--//-//--//-//--//-//
+
+let filter = document.getElementById("filter");
+let filterCounty = document.getElementById("filterCounty");
+filter.addEventListener("change", (event) => {
+  const URL = `/getCounty/${event.target.value}`;
+  const xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      let countyData = JSON.parse(this.responseText);
+      let result = '<option value="0" selected>Seçin...</option>';
+      countyData.forEach((element) => {
+        result += `
+        <option value="${element.ilce_key}">${element.ilce_title}</option>
+        `;
+      });
+      filterCounty.innerHTML = result;
+    }
+  };
+  xhttp.open("GET", URL, true);
+  xhttp.send();
+});
+
+//-//--//-//--//-//--//-//--//-//--//-//--//-//--//-//--//-//--//-//--//-//--//-//
+
+//-//--//-//--//-//--//-//--//-//--//-//--//-//--//-//--//-//--//-//--//-//--//-//
+let filterButton = document.getElementById("filterButton");
+filterButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  let filter = document.getElementById("filter");
+  filter = filter.options[filter.selectedIndex].innerHTML;
+
+  let filterCounty = document.getElementById("filterCounty");
+  filterCounty = filterCounty.options[filterCounty.selectedIndex].innerHTML;
+  const xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      alert(this.responseText);
+    }
+  };
+  xhttp.open("POST", "/filterTable");
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.send(`il=${filter}&ilce=${filterCounty}`);
 });

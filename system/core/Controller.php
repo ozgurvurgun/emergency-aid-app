@@ -23,7 +23,7 @@ class Controller
                 break;
             }
         }
-        require 'app/view/' . $fileName;
+        require_once 'app/view/' . $fileName;
     }
     public function model($name)
     {
@@ -35,7 +35,7 @@ class Controller
                 break;
             }
         }
-        require 'app/model/' . $fileName;
+        require_once 'app/model/' . $fileName;
         $className = 'App\Model\\' . $name;
         return new $className();
     }

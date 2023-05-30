@@ -42,4 +42,8 @@ class HomePage extends Model
             return "Lütfen Doldurulması Zorunlu Alanları Doldurun !";
         }
     }
+    public function getTableData()
+    {
+        return $this->db->query('SELECT * FROM yardim_talepleri')->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }
