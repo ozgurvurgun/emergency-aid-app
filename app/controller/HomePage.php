@@ -29,7 +29,9 @@ class HomePage extends Controller
     {
         $postData = [
             'city'          => $_POST['il'],
+            'cityKey'       => $_POST['ilKey'],
             'county'        => $_POST['ilce'],
+            'countyKey'     => $_POST['ilceKey'],
             'neighbourhood' => $_POST['mahalle'],
             'street'        => $_POST['caddeSokak'],
             'apartmentName' => $_POST['apartmanAd'],
@@ -39,17 +41,22 @@ class HomePage extends Controller
             'source'        => $_POST['kaynak'],
             'note'          => $_POST['not'],
         ];
-        echo  $this->model('HomePage')->saveForm($postData);
+        echo $this->model('HomePage')->saveForm($postData);
     }
     public function filterTable()
     {
-        if (trim($_POST['il']) === "Seçin...") {
-            echo "Lütfen Şehir Seçin";
-        } elseif (trim($_POST['il']) != 'Seçin...' & trim($_POST['ilce']) == 'Seçin...') {
-            echo "illeri siraliyorum";
+        $il = trim($_POST['il']);
+        $ilce = trim($_POST['ilce']);
+        if ($il == '0' || ($il == '0' && $ilce == '0')) {
+            $tableData = $this->model('HomePage')->getTableData();
+            echo json_encode(json_decode(json_encode($tableData), FALSE));
         }
-        elseif(trim($_POST['il']) != 'Seçin...' & trim($_POST['ilce']) != 'Seçin...'){
-            echo "il ve ilçelere göre siraliyorum";
+        elseif ($il != '0' && $ilce == '0') {
+            $getSelectTableData = $this->model('HomePage')->getSelectTableData($il);
+            echo json_encode(json_decode(json_encode($getSelectTableData), FALSE));
+        } elseif ($il != '0' && $ilce != '0') {
+            $getDoubleSelectTableData = $this->model('HomePage')->getDoubleSelectTableData($il,$ilce);
+            echo json_encode(json_decode(json_encode($getDoubleSelectTableData), FALSE));
         }
     }
 }

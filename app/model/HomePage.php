@@ -20,6 +20,8 @@ class HomePage extends Model
     }
     public function saveForm($data)
     {
+        $cityKey = trim($data['cityKey']);
+        $countyKey = trim($data['countyKey']);
         $city = trim($data['city']);
         $county = trim($data['county']);
         $neighbourhood = trim($data['neighbourhood']);
@@ -31,8 +33,8 @@ class HomePage extends Model
         $source = trim($data['source']);
         $note = trim($data['note']);
         if ($city != "Seçin..."    &&    $county != "Seçin..." && $neighbourhood != "Seçin..." && $source != "") {
-            $result = $this->db->query("INSERT INTO yardim_talepleri (yardim_talepleri_il, yardim_talepleri_ilce, yardim_talepleri_mahalle, yardim_talepleri_cadde_sokak, yardim_talepleri_apartman_adi, yardim_talepleri_apartman_no, yardim_talepleri_telefon_no, yardim_talepleri_ad_soyad, yardim_talepleri_kaynak, yardim_talepleri_not) 
-            VALUES ('$city', '$county', '$neighbourhood', '$street', '$apartmentName', '$apartmentNo', '$telephoneNo', '$nameSurname', '$source', '$note')");
+            $result = $this->db->query("INSERT INTO yardim_talepleri (yardim_talepleri_il_key, yardim_talepleri_ilce_key, yardim_talepleri_il, yardim_talepleri_ilce, yardim_talepleri_mahalle, yardim_talepleri_cadde_sokak, yardim_talepleri_apartman_adi, yardim_talepleri_apartman_no, yardim_talepleri_telefon_no, yardim_talepleri_ad_soyad, yardim_talepleri_kaynak, yardim_talepleri_not) 
+            VALUES ('$cityKey','$countyKey','$city', '$county', '$neighbourhood', '$street', '$apartmentName', '$apartmentNo', '$telephoneNo', '$nameSurname', '$source', '$note')");
             if ($result) {
                 return "Kayıt Başarılı. Bilgileriniz En Kısa Zamanda Yetkililerle Paylaşılacak.";
             } else {
@@ -44,6 +46,15 @@ class HomePage extends Model
     }
     public function getTableData()
     {
-        return $this->db->query('SELECT * FROM yardim_talepleri')->fetchAll(\PDO::FETCH_ASSOC);
+        return $this->db->query('SELECT * FROM yardim_talepleri ORDER BY yardim_talepleri_id DESC')->fetchAll(\PDO::FETCH_ASSOC);
+    }
+    public function getSelectTableData($il)
+    {
+        $il = trim($il);
+        return $this->db->query("SELECT * FROM yardim_talepleri WHERE yardim_talepleri_il_key=$il ORDER BY yardim_talepleri_id DESC")->fetchAll(\PDO::FETCH_ASSOC);
+    }
+    public function getDoubleSelectTableData($il, $ilce)
+    {
+        return $this->db->query("SELECT * FROM yardim_talepleri WHERE yardim_talepleri_il_key=$il AND yardim_talepleri_ilce_key=$ilce ORDER BY yardim_talepleri_id DESC")->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

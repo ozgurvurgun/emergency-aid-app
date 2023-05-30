@@ -125,15 +125,14 @@
           <div class="mb-3">
             <label class="form-label">ilçe</label>
             <select id="filterCounty" class="form-select">
-              <option selected>Seçin...</option>
-              <option value="1">One</option>
+              <option value="0" selected>Seçin...</option>
             </select>
           </div>
         </div>
         <div class="col-md-4 mx-auto">
           <label class="form-label">&nbsp;</label>
           <div class="d-grid gap-2">
-            <button id="filterButton" class="btn btn-success" type="button">Filtrele</button>
+            <button id="filterButton" class="btn btn-success" type="submit">Filtrele</button>
           </div>
         </div>
       </div>
@@ -153,7 +152,7 @@
             <th scope="col">Kayıt Zamanı</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="tableData">
 
           <?php
           foreach ($tableData as $value) { ?>
