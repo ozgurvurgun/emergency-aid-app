@@ -38,13 +38,16 @@
   But it is useful to specify it for legibility.
 */
 
-//Homepage start
+//homepage start
 Router::run('/', 'HomePage@index');
 Router::run('/getCounty/{id}', 'HomePage@getCounty', 'get');
 Router::run('/getNeighbourhood/{id}', 'HomePage@getNeighbourhood', 'get');
 Router::run('/saveForm', 'HomePage@saveForm', 'post');
 Router::run('/filterTable', 'HomePage@filterTable', 'post');
-//Homepage end
+//homepage end
 
-//admin page start
-Router::run('/admin','Admin@index');
+//admin panel start
+Router::run('/admin', 'admin@index');
+Router::run('/admin', 'admin@login', 'post');
+Router::run('/sessionDestroy', 'admin@sessionDestroy');
+//admin panel end
