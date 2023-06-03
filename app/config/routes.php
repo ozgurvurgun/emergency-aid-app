@@ -50,4 +50,10 @@ Router::run('/filterTable', 'HomePage@filterTable', 'post');
 Router::run('/admin', 'admin@index');
 Router::run('/admin', 'admin@login', 'post');
 Router::run('/sessionDestroy', 'admin@sessionDestroy');
+Router::run('/admin/kurtarilanlar', 'admin@kurtarilanlar');
+Router::run('/admin/bilanco', 'admin@bilanco');
+Router::run('/admin/ayarlar', 'admin@ayarlar');
+Router::run('/admin/status/update', 'admin@statusUpdate', 'post');
+Router::run('/admin/filterTable', 'admin@filterTable', 'post');
+Router::run('/admin/getfilterCount', 'admin@getfilterCount', 'post');
 //admin panel end

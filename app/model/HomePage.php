@@ -46,15 +46,15 @@ class HomePage extends Model
     }
     public function getTableData()
     {
-        return $this->db->query('SELECT * FROM yardim_talepleri ORDER BY yardim_talepleri_id DESC')->fetchAll(\PDO::FETCH_ASSOC);
+        return $this->db->query('SELECT * FROM yardim_talepleri WHERE yardim_talepleri_durum ="n" ORDER BY yardim_talepleri_id DESC')->fetchAll(\PDO::FETCH_ASSOC);
     }
     public function getSelectTableData($il)
     {
         $il = trim($il);
-        return $this->db->query("SELECT * FROM yardim_talepleri WHERE yardim_talepleri_il_key=$il ORDER BY yardim_talepleri_id DESC")->fetchAll(\PDO::FETCH_ASSOC);
+        return $this->db->query("SELECT * FROM yardim_talepleri WHERE yardim_talepleri_il_key=$il AND yardim_talepleri_durum ='n' ORDER BY yardim_talepleri_id DESC")->fetchAll(\PDO::FETCH_ASSOC);
     }
     public function getDoubleSelectTableData($il, $ilce)
     {
-        return $this->db->query("SELECT * FROM yardim_talepleri WHERE yardim_talepleri_il_key=$il AND yardim_talepleri_ilce_key=$ilce ORDER BY yardim_talepleri_id DESC")->fetchAll(\PDO::FETCH_ASSOC);
+        return $this->db->query("SELECT * FROM yardim_talepleri WHERE yardim_talepleri_il_key=$il AND yardim_talepleri_ilce_key=$ilce AND yardim_talepleri_durum ='n' ORDER BY yardim_talepleri_id DESC")->fetchAll(\PDO::FETCH_ASSOC);
     }
 }
